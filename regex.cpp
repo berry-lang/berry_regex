@@ -51,7 +51,7 @@ static int m_search(bvm *vm)
         if (std::regex_search(string, match, std::regex(pattern))) {
             for (auto i : match) {
                 be_pushstring(vm, i.str().c_str());
-                be_data_append(vm, -2);
+                be_data_push(vm, -2);
                 be_pop(vm, 1);
             }
         }
@@ -73,7 +73,7 @@ static int m_findall(bvm *vm)
         be_newlist(vm);
         for (; it != end; ++it) {
             be_pushstring(vm, (*it).str(0).c_str());
-            be_data_append(vm, -2);
+            be_data_push(vm, -2);
             be_pop(vm, 1);
         }
         be_call(vm, 1);
@@ -98,7 +98,7 @@ static int i_iter(bvm *vm)
         be_newlist(vm);
         for (auto i : desc->it()) {
             be_pushstring(vm, i.str().c_str());
-            be_data_append(vm, -2);
+            be_data_push(vm, -2);
             be_pop(vm, 1);
         }
         desc->next();
