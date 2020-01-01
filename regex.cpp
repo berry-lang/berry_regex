@@ -18,7 +18,7 @@ public:
     {
     }
     bool hasnext() { return m_it != m_end; }
-    auto it() { return *m_it; }
+    const std::smatch& it() { return *m_it; }
     void next() { ++m_it; }
 
 private:
