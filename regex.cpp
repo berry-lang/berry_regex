@@ -134,6 +134,7 @@ extern "C" {
 MODULE_API int berry_export(bvm *vm)
 {
     be_newmodule(vm);
+    be_setname(vm, -1, "regex");
     bind_member(vm, "match", m_match);
     bind_member(vm, "search", m_search);
     bind_member(vm, "findall", m_findall);

@@ -11,7 +11,7 @@ extern "C" {
 #endif
 
 /* do not modify the version number! */
-#define BERRY_VERSION   "0.1.6"
+#define BERRY_VERSION   "0.1.7"
 
 #if BE_STACK_TOTAL_MAX < BE_STACK_FREE_MIN * 2
 #error "The value of the macro BE_STACK_TOTAL_MAX is too small."
@@ -77,7 +77,7 @@ enum berrorcode {
 #if defined(_WIN32) /* in Windows */
   #if defined(BERRY_MODULE) /* berry extension module */
     #define BERRY_API           __declspec(dllimport)
-  #else /* cerry core */
+  #else /* berry core */
     #define BERRY_API           __declspec(dllexport)
   #endif
 #else
@@ -232,6 +232,7 @@ BERRY_API void be_pushreal(bvm *vm, breal r);
 BERRY_API void be_pushstring(bvm *vm, const char *str);
 BERRY_API void be_pushnstring(bvm *vm, const char *str, size_t n);
 BERRY_API const char* be_pushfstring(bvm *vm, const char *format, ...);
+BERRY_API void* be_pushbuffer(bvm *vm, size_t size);
 BERRY_API void be_pushvalue(bvm *vm, int index);
 BERRY_API void be_pushntvclosure(bvm *vm, bntvfunc f, int nupvals);
 BERRY_API void be_pushntvfunction(bvm *vm, bntvfunc f);
@@ -243,8 +244,10 @@ BERRY_API void be_newlist(bvm *vm);
 BERRY_API void be_newmap(bvm *vm);
 BERRY_API void be_newmodule(bvm *vm);
 BERRY_API void be_newcomobj(bvm *vm, void *data, bntvfunc destory);
-BERRY_API void be_getglobal(bvm *vm, const char *name);
-BERRY_API void be_getbuiltin(bvm *vm, const char *name);
+BERRY_API bbool be_setname(bvm *vm, int index, const char *name);
+BERRY_API bbool be_getglobal(bvm *vm, const char *name);
+BERRY_API bbool be_setglobal(bvm *vm, const char *name);
+BERRY_API bbool be_getbuiltin(bvm *vm, const char *name);
 BERRY_API bbool be_setmember(bvm *vm, int index, const char *k);
 BERRY_API bbool be_getmember(bvm *vm, int index, const char *k);
 BERRY_API bbool be_getmethod(bvm *vm, int index, const char *k);
@@ -289,10 +292,10 @@ BERRY_API void be_vm_delete(bvm *vm);
 BERRY_API int be_loadbuffer(bvm *vm,
     const char *name, const char *buffer, size_t length);
 BERRY_API int be_loadfile(bvm *vm, const char *name);
+BERRY_API int be_loadmodule(bvm *vm, const char *name);
 BERRY_API int be_loadlib(bvm *vm, const char *path);
 BERRY_API int be_loadexec(bvm *vm, const char *name);
 BERRY_API int be_saveexec(bvm *vm, const char *name);
-BERRY_API void be_codedump(bvm *vm, int index);
 
 /* module path list APIs */
 BERRY_API void be_module_path(bvm *vm);

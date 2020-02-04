@@ -45,15 +45,6 @@
  **/
 #define BE_DEBUG_RUNTIME_INFO           1
 
-/* Macro: BE_DEBUG_DUMP_LEVEL
- * Set debugging code-dump information.
- * 0: disable code-dump.
- * 1: enable the function be_dumpclosure.
- * 2: enable be_debug_ins_info on the basis of case 1.
- * default: 2
- **/
-#define BE_DEBUG_DUMP_LEVEL             2
-
 /* Macro: BE_STACK_TOTAL_MAX
  * Set the maximum total stack size.
  * default: 2000
@@ -117,6 +108,13 @@
  */
 #define BE_USE_SHARED_LIB               1
 
+/*
+ * Macro: BE_USE_DEBUGGER
+ * Berry debug hook switch.
+ * default: 0
+ */
+#define BE_USE_DEBUG_HOOK               0
+
 /* Macro: BE_USE_XXX_MODULE
  * These macros control whether the related module is compiled.
  * When they are true, they will enable related modules. At this
@@ -129,6 +127,7 @@
 #define BE_USE_TIME_MODULE              1
 #define BE_USE_OS_MODULE                1
 #define BE_USE_SYS_MODULE               1
+#define BE_USE_DEBUG_MODULE             1
 
 /* Macro: BE_EXPLICIT_XXX
  * If these macros are defined, the corresponding function will
