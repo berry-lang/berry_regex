@@ -6,15 +6,15 @@ ifeq ($(OS), Windows_NT) # Windows
     CPPFLAGS += berry.lib
     TARGET := $(TARGET).dll
 else
-    UNAME_S := $(shell uname -s)
     TARGET := $(TARGET).so
+    UNAME_S := $(shell uname -s)
     ifeq ($(UNAME_S), Darwin)
         CPPFLAGS += -undefined dynamic_lookup
     endif
 endif
 
 $(TARGET):
-	@ g++ $(CPPFLAGS) regex.cpp -o $(TARGET)
+	@ g++ regex.cpp $(CPPFLAGS) -o $(TARGET)
 
 install: $(INSTALL_PATH)
 	@ cp $(TARGET) $(INSTALL_PATH)
